@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using BQ.Xperience.Extensions.ContentTypeRestrictions.Models;
 using CMS.ContentEngine;
 using CMS.ContentEngine.Internal;
+using CMS.Core;
 using CMS.DataEngine;
 using CMS.Websites.Internal;
 using Kentico.Xperience.Admin.Base.Forms;
@@ -38,19 +39,24 @@ public class ExtensionMiddleware
         IInfoProvider<WebPageItemInfo> webPageItemInfoProvider, 
         IInfoProvider<ContentItemInfo> contentItemInfoProvider,
         IInfoProvider<ContentTypeConfigurationInfo> contentTypeConfigurationInfoProvider, 
-        IInfoProvider<ContentTypeAllowedTypeInfo> contentTypeAllowedTypeInfoProvider)
+        IInfoProvider<ContentTypeAllowedTypeInfo> contentTypeAllowedTypeInfoProvider,
+        IEventLogService eventLogService)
     {
+        // For request not on expected path, skip
         if (ExpectedRequestPath.Equals(context.Request.Path.Value, StringComparison.InvariantCultureIgnoreCase))
         {
+            // Pull out the path parameter and check for match with expected pattern
             var path = context.Request.Form.ContainsKey("path") ? context.Request.Form["path"].ToString() : null;
             var pathMatch = _createPagePathRegex.Match(path ?? "");
             if (pathMatch.Success)
             {
+                // Parse out the web page url identifier
                 var webPageUrlIdentifierValue = pathMatch.Groups[1].Value;
                 var webPageUrlIdentifier = new WebPageUrlIdentifier(webPageUrlIdentifierValue);
 
                 var allowedContentTypeIds = Array.Empty<int>();
 
+                // If attempting to create from the root node, the WebPageItemID will be 0. In this case, we need to get all content types that are allowed at the root.
                 if (webPageUrlIdentifier.WebPageItemID == 0)
                 {
                     var configurations = contentTypeConfigurationInfoProvider.Get()
@@ -61,10 +67,12 @@ public class ExtensionMiddleware
                 }
                 else
                 {
+                    // Determine the content type of the web page item
                     var webPage = webPageItemInfoProvider.Get(webPageUrlIdentifier.WebPageItemID);
                     var contentItem = contentItemInfoProvider.Get(webPage.WebPageItemContentItemID);
                     var contentTypeId = contentItem.ContentItemContentTypeID;
 
+                    // Try and see if there is configuration defined
                     var configuration = contentTypeConfigurationInfoProvider.Get()
                         .WhereEquals(nameof(ContentTypeConfigurationInfo.ContentTypeConfigurationContentTypeId), contentTypeId)
                         .TopN(1)
@@ -72,6 +80,7 @@ public class ExtensionMiddleware
 
                     if (configuration != null)
                     {
+                        // Pull the list of allowed types from the configuration
                         var allowedTypes = contentTypeAllowedTypeInfoProvider.Get()
                             .WhereEquals(nameof(ContentTypeAllowedTypeInfo.ContentTypeAllowedTypeContentTypeConfigurationId), configuration.ContentTypeConfigurationId)
                             .ToArray();
@@ -80,51 +89,61 @@ public class ExtensionMiddleware
                     }
                 }
 
+                // We need to intercept the response and modify the content type options directly from the response due to sealed and internal implementations within XbK
                 var originalBody = context.Response.Body;
 
-                // Read out the body
-                using (var memStream = new MemoryStream())
+                // Create a temporary memory stream to store the response that we can access later
+                using var memStream = new MemoryStream();
+                context.Response.Body = memStream;
+
+                // Run the request
+                await _next(context);
+
+                // Parse out the json response from the memory stream
+                memStream.Position = 0;
+                var responseBody = await new StreamReader(memStream).ReadToEndAsync();
+
+                try
                 {
-                    context.Response.Body = memStream;
-
-                    await _next(context);
-
-                    memStream.Position = 0;
-                    string responseBody = new StreamReader(memStream).ReadToEnd();
-
+                    // Parse to JObject
                     var toParse = JObject.Parse(responseBody);
 
+                    // Find items property
                     var items = toParse.Property(nameof(CreateWebPageClientProperties.Items).ToLower())?.Value as JArray;
                     if (items != null)
                     {
                         var contentType = items.Children().First(x => x.Value<string>("name") == "ContentType");
                         var contentTypeOptions = contentType.Value<JArray>("items");
 
+                        // Read out current content type options
                         var currentOptions = contentTypeOptions.ToObject<List<TileSelectorItem>>();
+
+                        // Apply allowed content types filter to provided options
                         var newOptions = currentOptions.Where(x => allowedContentTypeIds.Contains(x.Identifier)).ToArray();
 
+                        // Reset property in json
                         contentType["items"] = JArray.FromObject(newOptions, new JsonSerializer() { ContractResolver = new CamelCasePropertyNamesContractResolver() });
 
+                        // Set response body to new json object
                         responseBody = toParse.ToString();
 
-                        using (var newStream = new MemoryStream())
-                        using (var streamWriter = new StreamWriter(newStream))
-                        {
-                            streamWriter.Write(responseBody);
-                            streamWriter.Flush();
+                        // Write the modified response back to the original stream
+                        using var newStream = new MemoryStream();
+                        using var streamWriter = new StreamWriter(newStream);
+                        await streamWriter.WriteAsync(responseBody);
+                        await streamWriter.FlushAsync();
 
-                            newStream.Position = 0;
-                            await newStream.CopyToAsync(originalBody);
-                        }
-
-                    }
-                    else
-                    {
-                        memStream.Position = 0;
-                        await memStream.CopyToAsync(originalBody);
+                        newStream.Position = 0;
+                        await newStream.CopyToAsync(originalBody);
                     }
                 }
+                catch (Exception ex)
+                {
+                    eventLogService.LogException("ContentTypeRestrictions", "MIDDLEWARE", ex);
+                }
 
+                memStream.Position = 0;
+                await memStream.CopyToAsync(originalBody);
 
                 return;
             }
