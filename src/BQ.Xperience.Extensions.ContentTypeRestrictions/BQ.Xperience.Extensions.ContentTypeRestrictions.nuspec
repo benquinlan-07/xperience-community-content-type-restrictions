@@ -11,4 +11,7 @@
 			<dependency id="kentico.xperience.admin" version="29.3.0" />
 		</dependencies>
 	</metadata>
+    <files>
+        <file src="bin\Release\net6.0\BQ.Xperience.Extensions.ContentTypeRestrictions.dll" target="lib\net6.0" />
+    </files>
 </package>
