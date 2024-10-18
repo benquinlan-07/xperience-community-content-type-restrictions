@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<package >
+	<metadata>
+		<id>BQ.Xperience.Extensions.ContentTypeRestrictions</id>
+		<authors>Ben Quinlan</authors>
+		<projectUrl>https://github.com/benquinlan-07/Xperience.Extensions.ContentTypeRestrictions</projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Extension for Xperience by Kentico to allow admins to restrict page types in the content tree hierarchy.        </description>
+		<dependencies>
+			<dependency id="kentico.xperience.admin" version="29.3.0" />
+		</dependencies>
+	</metadata>
+</package>
