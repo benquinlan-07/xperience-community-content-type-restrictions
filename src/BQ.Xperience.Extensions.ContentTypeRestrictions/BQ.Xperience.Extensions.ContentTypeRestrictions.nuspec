@@ -8,7 +8,7 @@
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Extension for Xperience by Kentico to allow admins to restrict page types in the content tree hierarchy.</description>
 		<readme>docs\README.md</readme>
-		<license type="file">LICENSE.md</license>
+		<license type="file">licenses\LICENSE.md</license>
 		<dependencies>
 			<dependency id="kentico.xperience.admin" version="29.5.3" />
 		</dependencies>
