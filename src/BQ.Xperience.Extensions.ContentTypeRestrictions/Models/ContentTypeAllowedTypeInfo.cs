@@ -19,7 +19,7 @@ public partial class ContentTypeAllowedTypeInfo : AbstractInfo<ContentTypeAllowe
     /// <summary>
     /// Object type.
     /// </summary>
-    public const string OBJECT_TYPE = "bqctr.Contenttypeallowedtype";
+    public const string OBJECT_TYPE = "bqctr.contenttypeallowedtype";
     public const string OBJECT_CLASS_NAME = "BQCTR.ContentTypeAllowedType";
     public const string OBJECT_CLASS_DISPLAYNAME = "Content Type Allowed Type";
 
