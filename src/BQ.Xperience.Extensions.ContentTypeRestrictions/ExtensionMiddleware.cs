@@ -135,6 +135,8 @@ public class ExtensionMiddleware
 
                         newStream.Position = 0;
                         await newStream.CopyToAsync(originalBody);
+                        
+                        return;
                     }
                 }
                 catch (Exception ex)
