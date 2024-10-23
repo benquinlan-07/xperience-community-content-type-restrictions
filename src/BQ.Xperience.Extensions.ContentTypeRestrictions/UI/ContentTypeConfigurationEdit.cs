@@ -93,6 +93,8 @@ namespace BQ.Xperience.Extensions.ContentTypeRestrictions.UI
 
             _contentTypeConfigurationInfoProvider.Set(configuration);
 
+            model.AllowedChildTypes ??= Array.Empty<int>();
+
             var contentTypes = GetAllowedTypes(configuration.ContentTypeConfigurationId);
             var toRemove= contentTypes.Where(x => !model.AllowedChildTypes.Contains(x.ContentTypeAllowedTypeContentTypeId));
             foreach (var contentTypeToRemove in toRemove)
