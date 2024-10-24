@@ -49,7 +49,7 @@ internal class CreateWebPageExtender : PageExtender<CreateWebPage>
 
             if (contentTypePropertyEditor != null)
             {
-                var allowedContentTypeIds = GetAllowedContentTypeIds(Page.ParentWebPageIdentifier);
+                var allowedContentTypeIds = GetAllowedContentTypeIds(Page.ParentWebPageIdentifier.WebPageItemID);
 
                 contentTypePropertyEditor.Items = contentTypePropertyEditor.Items
                     ?.Where(x => allowedContentTypeIds.Contains(x.Identifier))
@@ -60,10 +60,10 @@ internal class CreateWebPageExtender : PageExtender<CreateWebPage>
         return properties;
     }
 
-    private ICollection<int> GetAllowedContentTypeIds(WebPageUrlIdentifier parentWebPageIdentifier)
+    private ICollection<int> GetAllowedContentTypeIds(int webPageItemID)
     {
         // If attempting to create from the root node, the WebPageItemID will be 0. In this case, we need to get all content types that are allowed at the root.
-        if (parentWebPageIdentifier.WebPageItemID == 0)
+        if (webPageItemID == 0)
         {
             var configurations = _contentTypeConfigurationInfoProvider.Get()
                 .WhereEquals(nameof(ContentTypeConfigurationInfo.ContentTypeConfigurationAllowAtRoot), true)
@@ -73,9 +73,14 @@ internal class CreateWebPageExtender : PageExtender<CreateWebPage>
         }
 
         // Determine the content type of the web page item
-        var webPage = _webPageItemInfoProvider.Get(parentWebPageIdentifier.WebPageItemID);
+        var webPage = _webPageItemInfoProvider.Get(webPageItemID);
         var contentItem = _contentItemInfoProvider.Get(webPage.WebPageItemContentItemID);
         var contentTypeId = contentItem.ContentItemContentTypeID;
+
+        if (contentTypeId == 0)
+        {
+            return GetAllowedContentTypeIds(webPage.WebPageItemParentID);
+        }
 
         // Try and see if there is configuration defined
         var configuration = _contentTypeConfigurationInfoProvider.Get()
