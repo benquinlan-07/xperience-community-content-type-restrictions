@@ -24,9 +24,3 @@ Add the following line to your Program.cs to register the necessary services.
 
     builder.Services.AddContentTypeRestrictionsExtensionServices();
 
-    ...
-
-    app.UseContentTypeRestrictionsExtension();
-
-
-Ensure the call to register the middleware is added before `app.UseKentico()` to ensure that the middleware is able to intercept the Kentico response.
