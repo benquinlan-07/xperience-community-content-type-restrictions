@@ -1,31 +1,3 @@
-# Xperience.Extensions.ContentTypeRestrictions
-## Description
-This package provides XbK administrators with an interface to restrict allowed content types within the content trees of a website channel.
-
-When editing a content type, a new menu item will be shown for "Allowed types".
-
-## Installation
-This package can be installed from nuget using the command:
-
-    Install-Package XperienceCommunity.ContentTypeRestrictions
-
-or using the .NET CLI with the command:
-
-    dotnet add package XperienceCommunity.ContentTypeRestrictions
-
-
-## Setup
-
-Add the following line to your Program.cs to register the necessary services.
-
-    using using XperienceCommunity.ContentTypeRestrictions;
-
-    ...
-
-    builder.Services.AddContentTypeRestrictionsExtensionServices();
-
-
-
 # Xperience Community: Content Type Restrictions
 
 ## Description
