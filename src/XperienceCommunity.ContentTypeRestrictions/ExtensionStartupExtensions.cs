@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace BQ.Xperience.Extensions.ContentTypeRestrictions;
+namespace XperienceCommunity.ContentTypeRestrictions;
 
 public static class ExtensionStartupExtensions
 {

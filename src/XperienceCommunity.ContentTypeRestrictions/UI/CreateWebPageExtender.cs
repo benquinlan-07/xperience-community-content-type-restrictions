@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BQ.Xperience.Extensions.ContentTypeRestrictions.Models;
-using BQ.Xperience.Extensions.ContentTypeRestrictions.UI;
+using XperienceCommunity.ContentTypeRestrictions.Models;
+using XperienceCommunity.ContentTypeRestrictions.UI;
 using CMS.ContentEngine.Internal;
 using CMS.DataEngine;
 using CMS.Websites.Internal;
@@ -14,7 +14,7 @@ using Kentico.Xperience.Admin.Websites.UIPages;
 
 [assembly: PageExtender(typeof(CreateWebPageExtender))]
 
-namespace BQ.Xperience.Extensions.ContentTypeRestrictions.UI;
+namespace XperienceCommunity.ContentTypeRestrictions.UI;
 
 internal class CreateWebPageExtender : PageExtender<CreateWebPage>
 {

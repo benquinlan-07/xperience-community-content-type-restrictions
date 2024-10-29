@@ -1,5 +1,5 @@
 ﻿using System;
-using BQ.Xperience.Extensions.ContentTypeRestrictions;
+using XperienceCommunity.ContentTypeRestrictions;
 using CMS.Base;
 using CMS.Core;
 using Kentico.Xperience.Admin.Base;
@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 [assembly: CMS.AssemblyDiscoverable]
 [assembly: CMS.RegisterModule(typeof(ExtensionAdminModule))]
 
-namespace BQ.Xperience.Extensions.ContentTypeRestrictions;
+namespace XperienceCommunity.ContentTypeRestrictions;
 
 internal class ExtensionAdminModule : AdminModule
 {
@@ -22,9 +22,6 @@ internal class ExtensionAdminModule : AdminModule
     protected override void OnInit(ModuleInitParameters parameters)
     {
         base.OnInit(parameters);
-
-        // Makes the module accessible to the admin UI
-        RegisterClientModule("bqctr", "web-admin");
 
         var services = parameters.Services;
 

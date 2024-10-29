@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Data;
 using System.Runtime.Serialization;
-using BQ.Xperience.Extensions.ContentTypeRestrictions.Models;
+using XperienceCommunity.ContentTypeRestrictions.Models;
 using CMS;
 using CMS.DataEngine;
 using CMS.Helpers;
 
 [assembly: RegisterObjectType(typeof(ContentTypeAllowedTypeInfo), ContentTypeAllowedTypeInfo.OBJECT_TYPE)]
 
-namespace BQ.Xperience.Extensions.ContentTypeRestrictions.Models;
+namespace XperienceCommunity.ContentTypeRestrictions.Models;
 
 /// <summary>
 /// Data container class for <see cref="ContentTypeAllowedTypeInfo"/>.

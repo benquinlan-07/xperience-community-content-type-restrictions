@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Builder;
 
-namespace BQ.Xperience.Extensions.ContentTypeRestrictions;
+namespace XperienceCommunity.ContentTypeRestrictions;
 
 public static class ExtensionMiddlewareExtensions
 {

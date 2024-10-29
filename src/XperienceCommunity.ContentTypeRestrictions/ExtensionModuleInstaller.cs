@@ -1,10 +1,10 @@
-﻿using BQ.Xperience.Extensions.ContentTypeRestrictions.Models;
+﻿using XperienceCommunity.ContentTypeRestrictions.Models;
 using CMS.ContentEngine;
 using CMS.DataEngine;
 using CMS.FormEngine;
 using CMS.Modules;
 
-namespace BQ.Xperience.Extensions.ContentTypeRestrictions;
+namespace XperienceCommunity.ContentTypeRestrictions;
 
 internal class ExtensionModuleInstaller
 {

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BQ.Xperience.Extensions.ContentTypeRestrictions.Models;
-using BQ.Xperience.Extensions.ContentTypeRestrictions.UI;
+using XperienceCommunity.ContentTypeRestrictions.Models;
+using XperienceCommunity.ContentTypeRestrictions.UI;
 using CMS.ContentEngine;
 using CMS.DataEngine;
 using Kentico.Xperience.Admin.Base;
@@ -14,7 +14,7 @@ using IFormItemCollectionProvider = Kentico.Xperience.Admin.Base.Forms.Internal.
 
 [assembly: UIPage(parentType: typeof(ContentTypeEditSection), slug: "allowed-types", uiPageType: typeof(ContentTypeConfigurationEdit), name: "Allowed types", templateName: TemplateNames.EDIT, order: 10000)]
 
-namespace BQ.Xperience.Extensions.ContentTypeRestrictions.UI
+namespace XperienceCommunity.ContentTypeRestrictions.UI
 {
     public class ContentTypeConfigurationEdit : ModelEditPage<ContentTypeConfigurationEdit.ContentTypeConfigurationModel>
     {
