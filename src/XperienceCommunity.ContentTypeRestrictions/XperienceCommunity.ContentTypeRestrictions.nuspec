@@ -4,7 +4,7 @@
 		<id>XperienceCommunity.ContentTypeRestrictions</id>
 		<authors>Ben Quinlan</authors>
 		<version>$version</version>
-		<projectUrl>https://github.com/benquinlan-07/Xperience.Extensions.ContentTypeRestrictions</projectUrl>
+		<projectUrl>https://github.com/benquinlan-07/xperience-community-content-type-restrictions</projectUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Extension for Xperience by Kentico to allow admins to restrict page types in the content tree hierarchy.</description>
 		<readme>docs\README.md</readme>
