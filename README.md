@@ -4,7 +4,7 @@
 
 This package provides Xperience by Kentico administrators with an interface to restrict allowed content types within the content trees of a website channel. This package is intended to reduce allow control over what content types are available in order to guide editors towards the correct options when structuring site content.
 
-![Xperience by Content Type Restrictions](https://github.com/benquinlan-07/Xperience.Extensions.ContentTypeRestrictions/blob/main/images/content-type-restrictions-add-page.jpeg?raw=true)
+![Xperience by Content Type Restrictions](https://raw.githubusercontent.com/benquinlan-07/xperience-community-content-type-restrictions/refs/heads/main/images/content-type-restrictions-edit.jpeg)
 
 ## Requirements
 
@@ -56,7 +56,7 @@ Install-Package XperienceCommunity.ContentTypeRestrictions
 1. Edit a content type.
 
 1. Select whether the content type is allowed at the root level and what child types are allowed under this content type.
-![Xperience by Content Type Restrictions](https://github.com/benquinlan-07/Xperience.Extensions.ContentTypeRestrictions/blob/main/images/content-type-restrictions-edit.jpeg?raw=true)
+![Xperience by Content Type Restrictions](https://raw.githubusercontent.com/benquinlan-07/xperience-community-content-type-restrictions/refs/heads/main/images/content-type-restrictions-edit.jpeg)
 
 1. When creating a new page in the website channel, the available content types will be restricted to only the specified allowed types.
-![Xperience by Content Type Restrictions](https://github.com/benquinlan-07/Xperience.Extensions.ContentTypeRestrictions/blob/main/images/content-type-restrictions-add-page.jpeg?raw=true)
+![Xperience by Content Type Restrictions](https://raw.githubusercontent.com/benquinlan-07/xperience-community-content-type-restrictions/refs/heads/main/images/content-type-restrictions-add-page.jpeg)
