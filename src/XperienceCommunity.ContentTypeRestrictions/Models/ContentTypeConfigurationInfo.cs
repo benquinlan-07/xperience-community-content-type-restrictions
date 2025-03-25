@@ -105,7 +105,6 @@ public partial class ContentTypeConfigurationInfo : AbstractInfo<ContentTypeConf
     /// <param name="info">Serialization info.</param>
     /// <param name="context">Streaming context.</param>
     protected ContentTypeConfigurationInfo(SerializationInfo info, StreamingContext context)
-        : base(info, context)
     {
     }
 

@@ -100,17 +100,6 @@ public partial class ContentTypeAllowedTypeInfo : AbstractInfo<ContentTypeAllowe
 
 
     /// <summary>
-    /// Constructor for de-serialization.
-    /// </summary>
-    /// <param name="info">Serialization info.</param>
-    /// <param name="context">Streaming context.</param>
-    protected ContentTypeAllowedTypeInfo(SerializationInfo info, StreamingContext context)
-        : base(info, context)
-    {
-    }
-
-
-    /// <summary>
     /// Creates an empty instance of the <see cref="ContentTypeAllowedTypeInfo"/> class.
     /// </summary>
     public ContentTypeAllowedTypeInfo()
