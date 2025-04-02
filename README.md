@@ -1,7 +1,6 @@
 # Xperience Community: Content Type Restrictions
 
-> [!IMPORTANT]
-> ## Deprectated
+> [!WARNING]
 > 
 > With the release of the Feb 2025 refresh, this functionality of this package has now been replaced with core features available > directly within Xperience by Kentico. To that end, this package will no longer be supported and will instead be intended to be > replaced with the core functionality.
 > 
