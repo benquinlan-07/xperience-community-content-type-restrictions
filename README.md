@@ -1,5 +1,3 @@
-# Xperience Community: Content Type Restrictions
-
 > [!WARNING]
 > 
 > With the release of the Feb 2025 refresh, this functionality of this package has now been replaced with core features available > directly within Xperience by Kentico. To that end, this package will no longer be supported and will instead be intended to be > replaced with the core functionality.
@@ -9,24 +7,25 @@
 > To assist you with migrating your data from this plugin, I have included a script below. Note that this script is provided for general use and may need to be modified based on how your specific instance of XbyK is setup.
 > 
 > ```sql
-> insert into CMS_WebPageScope (WebPageScopeWebsiteChannelID, WebPageScopeWebPageItemID, > WebPageScopeIncludeChildren, WebPageScopeGUID)
+> insert into CMS_WebPageScope (WebPageScopeWebsiteChannelID, WebPageScopeWebPageItemID, WebPageScopeIncludeChildren, WebPageScopeGUID)
 > select		WebsiteChannelID, null, 0, newid()
 > from		CMS_WebsiteChannel wc
 > left join	CMS_WebPageScope wps on wc.WebsiteChannelID = wps.WebPageScopeWebsiteChannelID
 > where		wps.WebPageScopeWebsiteChannelID is null
 > 
-> insert into CMS_WebPageScopeContentType (WebPageScopeContentTypeWebPageScopeID, > WebPageScopeContentTypeContentTypeID)
+> insert into CMS_WebPageScopeContentType (WebPageScopeContentTypeWebPageScopeID, WebPageScopeContentTypeContentTypeID)
 > select		WebPageScopeID, ContentTypeConfigurationContentTypeId
 > from		CMS_WebPageScope
 > cross join	BQCTR_ContentTypeConfiguration 
 > where		ContentTypeConfigurationAllowAtRoot = 1
 > 
-> insert into CMS_AllowedChildContentType (AllowedChildContentTypeParentID, > AllowedChildContentTypeChildID)
-> select		distinct ctc.ContentTypeConfigurationContentTypeId, ctat.> ContentTypeAllowedTypeContentTypeId
+> insert into CMS_AllowedChildContentType (AllowedChildContentTypeParentID, AllowedChildContentTypeChildID)
+> select		distinct ctc.ContentTypeConfigurationContentTypeId, ctat.ContentTypeAllowedTypeContentTypeId
 > from		BQCTR_ContentTypeAllowedType ctat
-> inner join	BQCTR_ContentTypeConfiguration ctc on ctat.> ContentTypeAllowedTypeContentTypeConfigurationId = ctc.ContentTypeConfigurationId
+> inner join	BQCTR_ContentTypeConfiguration ctc on ctat.ContentTypeAllowedTypeContentTypeConfigurationId = ctc.ContentTypeConfigurationId
 > ```
 
+# Xperience Community: Content Type Restrictions
 
 ## Description
 
