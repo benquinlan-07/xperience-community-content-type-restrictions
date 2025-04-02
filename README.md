@@ -1,8 +1,8 @@
 > [!WARNING]
 > 
-> With the release of the Feb 2025 refresh, this functionality of this package has now been replaced with core features available > directly within Xperience by Kentico. To that end, this package will no longer be supported and will instead be intended to be > replaced with the core functionality.
+> With the release of the Feb 2025 refresh, this functionality of this package has now been replaced with core features available directly within Xperience by Kentico. To that end, this package will no longer be supported and will instead be intended to be replaced with the core functionality.
 > 
-> See https://community.kentico.com/blog/xperience-by-kentico-refresh-february-20-2025#allowed-web-page-content-types-and-scopes for > more information on the feature release.
+> See https://community.kentico.com/blog/xperience-by-kentico-refresh-february-20-2025#allowed-web-page-content-types-and-scopes for more information on the feature release.
 > 
 > To assist you with migrating your data from this plugin, I have included a script below. Note that this script is provided for general use and may need to be modified based on how your specific instance of XbyK is setup.
 > 
